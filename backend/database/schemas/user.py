@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from datetime import datetime
 import re
@@ -12,7 +12,7 @@ class UserBase(BaseModel):
 class UserSignup(UserBase):
     password: str = Field(..., min_length=8, max_length=100)
     
-    @validator('password')
+    @field_validator('password')
     def validate_password(cls, v):
         if len(v) < 8:
             raise ValueError('Password must be at least 8 characters long')
@@ -24,7 +24,7 @@ class UserSignup(UserBase):
             raise ValueError('Password must contain at least one number')
         return v
     
-    @validator('name')
+    @field_validator('name')
     def validate_name(cls, v):
         if not v.strip():
             raise ValueError('Name cannot be empty')
@@ -50,7 +50,7 @@ class PasswordReset(BaseModel):
     token: str = Field(..., min_length=1)
     new_password: str = Field(..., min_length=8, max_length=100)
     
-    @validator('new_password')
+    @field_validator('new_password')
     def validate_new_password(cls, v):
         if len(v) < 8:
             raise ValueError('Password must be at least 8 characters long')
@@ -80,10 +80,10 @@ class UserResponse(BaseModel):
 # User Profile Update Schema
 class UserProfileUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=2, max_length=100)
-    phone: Optional[str] = Field(None, regex=r'^\+?1?\d{9,15}$')
+    phone: Optional[str] = Field(None, pattern=r'^\+?1?\d{9,15}$')
     avatar_url: Optional[str] = Field(None, max_length=500)
     
-    @validator('name')
+    @field_validator('name')
     def validate_name(cls, v):
         if v is not None and not v.strip():
             raise ValueError('Name cannot be empty')

@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.responses import JSONResponse
+from fastapi.security import HTTPBearer, HTTPBasic
 from sqlalchemy.orm import Session
 
 from config.database import get_db
@@ -290,11 +291,16 @@ async def refresh_access_token(
 
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_info(
+    request: Request,
     db: Session = Depends(get_db),
     current_user = Depends(get_current_user)
 ):
     """
     Get current user information
+    
+    **Authentication Required:**
+    - Use Bearer token: `Bearer <your-jwt-token>`
+    - Or Basic auth: username=email, password=your-password
     
     Returns:
     - Current user profile information

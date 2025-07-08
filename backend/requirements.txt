@@ -1,94 +1,27 @@
-# FastAPI and ASGI server
+# FastAPI & Related
 fastapi==0.104.1
-uvicorn[standard]==0.24.0
+uvicorn==0.24.0
+pydantic==2.4.2
+pydantic-settings==2.0.3
+pydantic[email]==2.4.2
 
 # Database
 sqlalchemy==2.0.23
 alembic==1.12.1
 
-# Authentication and Security
-python-jose[cryptography]==3.3.0
+# Security
 passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
 python-multipart==0.0.6
 
-# Email and Validation
-pydantic[email]==2.5.0
+# Email
+aiosmtplib==3.0.1
 jinja2==3.1.2
 
-# Background Tasks
-celery==5.3.4
-redis==5.0.1
-
-# Computer Vision
-opencv-python==4.8.1.78
-ultralytics==8.0.206
-mediapipe==0.10.8
-numpy==1.24.4
-pillow==10.1.0
-
-# Video Processing
-ffmpeg-python==0.2.0
-
-# HTTP Client
-httpx==0.25.2
-requests==2.31.0
-
-# External Services
-stripe==7.8.0
-twilio==8.10.0
-
-# Cloud Services
-boto3==1.34.0  # AWS
-google-cloud-storage==2.10.0  # GCP
-
-# Development and Testing
-pytest==7.4.3
-pytest-asyncio==0.21.1
-black==23.11.0
-flake8==6.1.0
-
-# Environment and Configuration
+# Environment
 python-dotenv==1.0.0
 
-# WebSocket support
-websockets==12.0
-
-# Rate limiting
-slowapi==0.1.9
-
-# Monitoring and Logging
-prometheus-client==0.19.0
-
-# File handling
-aiofiles==23.2.1
-
-# Date and time
-python-dateutil==2.8.2
-
-# QR Code generation
-qrcode[pil]==7.4.2
-
-# Password strength validation
-zxcvbn==4.4.28
-
-# Async HTTP client
-aiohttp==3.9.1
-
-# JSON Web Tokens
-pyjwt==2.8.0
-
-# Data validation
-phonenumbers==8.13.25
-
-# Image processing
-scikit-image==0.22.0
-
-# Deep learning (for advanced CV)
-torch==2.1.1
-torchvision==0.16.1
-
-# Tracking algorithms
-filterpy==1.4.5
-
-# CORS
-python-cors==1.0.0 
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.1 

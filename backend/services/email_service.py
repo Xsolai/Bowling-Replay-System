@@ -9,11 +9,11 @@ class EmailService:
     """Handle email sending operations"""
     
     def __init__(self):
-        self.smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-        self.smtp_port = int(os.getenv("SMTP_PORT", "587"))
-        self.smtp_username = os.getenv("SMTP_USERNAME", "your-email@gmail.com")
-        self.smtp_password = os.getenv("SMTP_PASSWORD", "your-app-password")
-        self.from_email = os.getenv("FROM_EMAIL", "noreply@bowlingreplay.com")
+        self.smtp_server = os.getenv("SMTP_SERVER", "smtp.hostinger.com")
+        self.smtp_port = int(os.getenv("SMTP_PORT", "465"))
+        self.smtp_username = os.getenv("SMTP_USERNAME", "test@xsol.ai")
+        self.smtp_password = os.getenv("SMTP_PASSWORD", "XsolAI@123")
+        self.from_email = os.getenv("FROM_EMAIL", "test@xsol.ai")
         self.from_name = os.getenv("FROM_NAME", "Bowling Replay System")
         
         # Base URL for the application
@@ -48,10 +48,17 @@ class EmailService:
             message.attach(html_part)
             
             # Send email
-            with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
-                server.starttls()
-                server.login(self.smtp_username, self.smtp_password)
-                server.send_message(message)
+            if self.smtp_port == 465:
+                # Use SMTP_SSL for port 465
+                with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
+                    server.login(self.smtp_username, self.smtp_password)
+                    server.send_message(message)
+            else:
+                # Use regular SMTP with STARTTLS for other ports (587, 25)
+                with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+                    server.starttls()
+                    server.login(self.smtp_username, self.smtp_password)
+                    server.send_message(message)
             
             return True
             

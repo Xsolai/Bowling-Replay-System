@@ -36,7 +36,36 @@ class AuthService:
         # Check if user already exists
         existing_user = self.db.query(User).filter(User.email == user_data.email).first()
         if existing_user:
-            raise ValidationError("Email already registered")
+            if existing_user.is_verified:
+                raise ValidationError("Email already registered")
+            else:
+                # User exists but not verified, resend verification email
+                # Generate new verification token
+                verification_token = self.password_handler.generate_secure_token(32)
+                verification_expires = datetime.utcnow() + timedelta(hours=24)
+                
+                # Update user with new verification token and password (in case they changed it)
+                existing_user.verification_token = verification_token
+                existing_user.verification_token_expires = verification_expires
+                existing_user.password_hash = self.password_handler.hash_password(user_data.password)
+                existing_user.name = user_data.name  # Update name in case it changed
+                
+                self.db.commit()
+                self.db.refresh(existing_user)
+                
+                # Send verification email
+                try:
+                    self.email_service.send_verification_email(
+                        to_email=existing_user.email,
+                        name=existing_user.name,
+                        verification_token=verification_token
+                    )
+                except Exception as e:
+                    print(f"Error sending verification email: {e}")
+                    # Don't fail registration if email fails
+                
+                user_response = UserResponse.from_orm(existing_user)
+                return user_response, "Verification email sent. Please check your email for verification."
         
         # Validate password strength
         is_strong, message = self.password_handler.is_password_strong(user_data.password)

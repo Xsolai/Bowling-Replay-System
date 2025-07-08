@@ -1,35 +1,69 @@
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from contextlib import asynccontextmanager
-
 from config.database import create_tables
 from api.v1.endpoints import auth
 from utils.exceptions import BaseCustomException
-
-# App lifespan manager
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    print("🚀 Starting Bowling Replay System API...")
-    
-    # Create database tables
-    print("📊 Creating database tables...")
-    create_tables()
-    print("✅ Database tables created successfully")
-    
-    yield
-    
-    # Shutdown
-    print("🛑 Shutting down Bowling Replay System API...")
 
 # Create FastAPI app
 app = FastAPI(
     title="Bowling Replay System API",
     description="AI-Powered Bowling Replay System with Computer Vision",
     version="1.0.0",
-    lifespan=lifespan
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "User authentication and authorization endpoints"
+        }
+    ]
 )
+
+# Add security schemes to OpenAPI
+from fastapi.openapi.utils import get_openapi
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    
+    openapi_schema = get_openapi(
+        title="Bowling Replay System API",
+        version="1.0.0",
+        description="AI-Powered Bowling Replay System with Computer Vision",
+        routes=app.routes,
+    )
+    
+    # Add multiple security schemes
+    openapi_schema["components"]["securitySchemes"] = {
+        "HTTPBearer": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+            "description": "JWT token authentication (use /api/v1/auth/signin to get token)"
+        },
+        "HTTPBasic": {
+            "type": "http",
+            "scheme": "basic",
+            "description": "Basic authentication using email and password"
+        }
+    }
+    
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
+
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    print("🚀 Starting Bowling Replay System API...")
+    print("📊 Creating database tables...")
+    create_tables()
+    print("✅ Database tables created successfully")
+
+# Shutdown event
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("🛑 Shutting down Bowling Replay System API...")
 
 # CORS middleware
 app.add_middleware(
