@@ -1,0 +1,1 @@
+# Event detection combining pose estimation and object detection for bowling actions 

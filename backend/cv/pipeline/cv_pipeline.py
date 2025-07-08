@@ -1,0 +1,1 @@
+# Main computer vision pipeline orchestrating detection, tracking, and event processing 

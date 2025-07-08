@@ -1,0 +1,1 @@
+# Session Pydantic schemas for bowling session data validation 

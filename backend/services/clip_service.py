@@ -1,0 +1,1 @@
+# Clip service for video clip generation, storage, and access management 

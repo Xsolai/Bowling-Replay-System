@@ -1,0 +1,1 @@
+# Lane database model with alley, camera, and QR code configuration 

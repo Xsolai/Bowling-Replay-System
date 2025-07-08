@@ -1,0 +1,1 @@
+# Frame synchronization for dual-camera setup with timestamp alignment 

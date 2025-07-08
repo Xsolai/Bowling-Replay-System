@@ -1,0 +1,1 @@
+# Bowling lane endpoints for lane management, QR codes, and camera setup 

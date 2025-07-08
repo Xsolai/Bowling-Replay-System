@@ -1,0 +1,1 @@
+# Alembic migration environment configuration for database schema management 

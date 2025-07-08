@@ -1,0 +1,1 @@
+# Clip database operations for video clip metadata and access management 

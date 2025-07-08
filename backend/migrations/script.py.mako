@@ -1,0 +1,1 @@
+# Alembic migration script template for database schema changes 

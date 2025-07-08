@@ -1,0 +1,1 @@
+# Celery application setup for background task processing and job queue management 

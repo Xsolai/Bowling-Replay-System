@@ -1,0 +1,1 @@
+# MediaPipe pose estimation configuration and model management 

@@ -1,0 +1,1 @@
+# Camera management for dual-camera setup, synchronization, and frame processing 

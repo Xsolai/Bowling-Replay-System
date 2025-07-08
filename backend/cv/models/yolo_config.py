@@ -1,0 +1,1 @@
+# YOLO model configuration, weights management, and inference optimization 

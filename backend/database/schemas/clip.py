@@ -1,0 +1,1 @@
+# Clip Pydantic schemas for video clip metadata and access control 

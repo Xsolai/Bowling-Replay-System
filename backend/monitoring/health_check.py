@@ -1,0 +1,1 @@
+# Health check endpoints for system monitoring and availability 

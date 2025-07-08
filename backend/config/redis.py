@@ -1,0 +1,1 @@
+# Redis connection setup for caching, session management, and task queues 

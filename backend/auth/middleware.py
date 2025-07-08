@@ -1,0 +1,1 @@
+# Authentication middleware for request validation and user context 

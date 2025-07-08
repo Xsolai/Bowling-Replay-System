@@ -1,0 +1,1 @@
+# Video clip database model with file paths, metadata, and access control 

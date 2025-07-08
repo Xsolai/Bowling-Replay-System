@@ -1,0 +1,1 @@
+# Stripe payment gateway client for payment processing and subscription management 

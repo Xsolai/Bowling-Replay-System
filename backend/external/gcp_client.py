@@ -1,0 +1,1 @@
+# Google Cloud Platform client for storage, compute, and cloud services integration 

@@ -1,0 +1,1 @@
+# Event Pydantic schemas for computer vision event data validation 

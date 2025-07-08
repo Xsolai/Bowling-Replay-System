@@ -1,0 +1,1 @@
+# CORS middleware for cross-origin request handling 

@@ -1,0 +1,1 @@
+# Pose detection using MediaPipe or YOLOv8-Pose for bowling motion analysis 

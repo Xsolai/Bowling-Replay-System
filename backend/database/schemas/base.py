@@ -1,0 +1,1 @@
+# Base Pydantic schema with common fields and configuration 

@@ -1,0 +1,1 @@
+# Computer vision events endpoints for real-time event streaming and management 

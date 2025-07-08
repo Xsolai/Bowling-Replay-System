@@ -1,0 +1,1 @@
+# Base database model with common fields and SQLAlchemy configuration 
